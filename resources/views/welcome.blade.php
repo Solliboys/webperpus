@@ -1,835 +1,513 @@
 @extends('layouts.frontend._main')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - QuickStart Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+<style>
+  :root {
+    --bondo-green: #1a6d3a;
+    --bondo-green-dark: #0a3c1e;
+    --bondo-green-light: #e8f5ec;
+    --bondo-gold: #d4a017;
+    --bondo-gold-light: #fdf6e3;
+    --bondo-text: #2c3e50;
+    --bondo-muted: #6c757d;
+    --bondo-bg: #fafbfc;
+  }
 
-  <!-- =======================================================
-  * Template Name: QuickStart
-  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+  .section-padding { padding: 80px 0; }
+  .section-title { text-align: center; margin-bottom: 50px; }
+  .section-title h2 { font-size: 2rem; font-weight: 800; color: var(--bondo-text); margin-bottom: 10px; }
+  .section-title p { color: var(--bondo-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+  .section-title .line { width: 60px; height: 4px; background: var(--bondo-gold); border-radius: 2px; margin: 15px auto 0; }
 
-<body class="index-page">
+  /* Hero */
+  .hero-perpus {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--bondo-green-dark) 0%, var(--bondo-green) 100%);
+  }
+  .hero-perpus::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80') center/cover;
+    opacity: 0.15;
+  }
+  .hero-perpus .hero-content { position: relative; z-index: 2; }
+  .hero-perpus .hero-badge {
+    display: inline-block; background: var(--bondo-gold); color: #fff;
+    padding: 6px 20px; border-radius: 50px; font-size: 0.75rem;
+    font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .hero-perpus h1 { font-size: 3.2rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 20px; }
+  .hero-perpus h1 span { color: var(--bondo-gold); }
+  .hero-perpus .hero-desc { color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 560px; margin: 0 auto 35px; line-height: 1.7; }
+  /* Shared Button Styles */
+  .btn-hero-primary, .btn-hero-secondary {
+    padding: 14px 36px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.3s; backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.3); color: #fff;
+  }
+  .btn-hero-primary:hover, .btn-hero-secondary:hover { transform: translateY(-3px); color: #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
 
+  .btn-hero-primary { background: rgba(212, 160, 23, 0.4); }
+  .btn-hero-primary:hover { background: rgba(212, 160, 23, 0.85); }
+  
+  .btn-hero-secondary { background: rgba(255,255,255,0.12); }
+  .btn-hero-secondary:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.6); }
+  .hero-stats { margin-top: 60px; }
+  .hero-stat-item { text-align: center; }
+  .hero-stat-item h3 { font-size: 1.8rem; font-weight: 800; color: var(--bondo-gold); margin-bottom: 2px; }
+  .hero-stat-item p { color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; margin: 0; }
 
-  <main class="main">
+  /* Feature Cards */
+  .feature-card {
+    background: #fff; border-radius: 16px; padding: 30px;
+    border: 1px solid #f0f0f0; transition: all 0.3s; text-align: center;
+    height: 100%;
+  }
+  .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: transparent; }
+  .feature-card .icon-box {
+    width: 60px; height: 60px; border-radius: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 18px;
+  }
+  .feature-card h5 { font-weight: 700; color: var(--bondo-text); margin-bottom: 8px; }
+  .feature-card p { color: var(--bondo-muted); font-size: 0.9rem; margin: 0; }
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-      <div class="hero-bg">
-        <img src="p/assets/img/hero-bg-light.webp" alt="">
-      </div>
-      <div class="container text-center">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <h1 data-aos="fade-up">Welcome to <span>QuickStart</span></h1>
-          <p data-aos="fade-up" data-aos-delay="100">Quickly start your project now and set the stage for success<br></p>
-          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#about" class="btn-get-started">Get Started</a>
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-          </div>
-          <img src="p/assets/img/hero-services-img.webp" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+  /* Jadwal */
+  .jadwal-status {
+    border-radius: 20px; padding: 40px; text-align: center; color: #fff;
+  }
+  .jadwal-table { border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
+  .jadwal-table table { margin: 0; }
+  .jadwal-table thead { background: var(--bondo-green-light); }
+  .jadwal-table thead th { color: var(--bondo-green); font-weight: 700; border: none; padding: 14px; font-size: 0.9rem; }
+  .jadwal-table tbody td { padding: 14px; font-size: 0.9rem; border-color: #f5f5f5; }
+
+  /* Berita */
+  .berita-card {
+    border-radius: 16px; overflow: hidden; border: 1px solid #f0f0f0;
+    background: #fff; transition: all 0.3s; height: 100%;
+  }
+  .berita-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+  .berita-card img { height: 200px; object-fit: cover; width: 100%; }
+  .berita-card .berita-body { padding: 24px; }
+  .berita-card .berita-badge {
+    display: inline-block; padding: 4px 12px; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .berita-card h5 { font-weight: 700; font-size: 1rem; color: var(--bondo-text); margin: 12px 0 8px; }
+  .berita-card p { color: var(--bondo-muted); font-size: 0.88rem; line-height: 1.6; }
+  .berita-card .read-more { color: var(--bondo-green); font-weight: 700; font-size: 0.85rem; text-decoration: none; }
+  .berita-card .read-more:hover { text-decoration: underline; }
+
+  /* Buku */
+  .buku-card {
+    background: #fff; border-radius: 16px; padding: 24px; text-align: center;
+    border: 1px solid #f0f0f0; transition: all 0.3s; height: 100%; position: relative;
+  }
+  .buku-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--bondo-green); }
+  .buku-card img { width: 130px; height: 190px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); margin-bottom: 18px; }
+  .buku-card h6 { font-weight: 700; color: var(--bondo-text); margin-bottom: 4px; }
+  .buku-card .author { color: var(--bondo-muted); font-size: 0.82rem; margin-bottom: 10px; }
+  .buku-card .kategori-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; background: var(--bondo-green-light); color: var(--bondo-green);
+  }
+  .buku-card .badge-populer {
+    position: absolute; top: 12px; right: 12px; background: #ef4444; color: #fff;
+    padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+  }
+
+  /* Ulasan */
+  .ulasan-card {
+    background: #fff; border-radius: 16px; padding: 30px; text-align: center;
+    border: 1px solid #f0f0f0; height: 100%; transition: all 0.3s;
+  }
+  .ulasan-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+  .ulasan-card .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 15px; }
+  .ulasan-card blockquote { font-style: italic; color: #555; font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; }
+  .ulasan-card .avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bondo-green-light); margin-bottom: 8px; }
+  .ulasan-card .name { font-weight: 700; color: var(--bondo-text); font-size: 0.9rem; margin: 0; }
+  .ulasan-card .role { color: var(--bondo-muted); font-size: 0.78rem; margin: 0; }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, var(--bondo-green-dark), var(--bondo-green));
+    padding: 60px 0; text-align: center; color: #fff;
+  }
+  .cta-section h3 { font-weight: 800; font-size: 1.8rem; margin-bottom: 12px; color: #fff; }
+  .cta-section p { color: rgba(255,255,255,0.85); font-size: 1rem; margin-bottom: 30px; }
+  .cta-section .btn-hero-primary {
+    background: var(--bondo-gold); border: none;
+  }
+  .cta-section .btn-hero-primary:hover { background: #b88a14; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-perpus h1 { font-size: 2rem; }
+    .hero-perpus .hero-desc { font-size: 0.95rem; }
+    .section-padding { padding: 50px 0; }
+  }
+
+  /* === Override template main.css conflicts === */
+  .hero-perpus {
+    background-color: transparent !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    scroll-margin-top: 0 !important;
+  }
+  .section-padding {
+    overflow: visible !important;
+    background-color: transparent !important;
+  }
+  .cta-section {
+    overflow: visible !important;
+    background-color: transparent !important;
+  }
+  /* Reset section-title from template */
+  .section-padding .section-title {
+    padding-bottom: 0 !important;
+  }
+  .section-padding .section-title h2::after {
+    display: none !important;
+  }
+
+  /* Fallback: jika AOS gagal load, tetap tampilkan konten */
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+</style>
+
+<!-- ========= HERO ========= -->
+<section class="hero-perpus" id="hero">
+  <div class="container hero-content text-center">
+    <div class="hero-badge">PERPUSTAKAAN KABUPATEN BONDOWOSO</div>
+    <h1>Selamat Datang di<br><span>Perpustakaan Daerah</span></h1>
+    <p class="hero-desc">Jendela dunia dalam genggaman Anda. Akses ribuan koleksi buku, layanan digital, dan ruang baca nyaman untuk seluruh masyarakat Bondowoso.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="#buku" class="btn-hero-primary"><i class="bi bi-journal-bookmark"></i> Jelajahi Koleksi</a>
+      <a href="#jadwal" class="btn-hero-secondary"><i class="bi bi-clock"></i> Jam Operasional</a>
+    </div>
+    <div class="hero-stats">
+      <div class="row justify-content-center g-4">
+        <div class="col-4 col-md-2 hero-stat-item">
+          <h3>10K+</h3><p>Koleksi Buku</p>
+        </div>
+        <div class="col-4 col-md-2 hero-stat-item">
+          <h3>842</h3><p>Anggota Aktif</p>
+        </div>
+        <div class="col-4 col-md-2 hero-stat-item">
+          <h3>15K+</h3><p>Pengunjung</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Hero Section -->
-
-    <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section light-background">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Lorem Ipsum</a></h4>
-                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-              </div>
-            </div>
-          </div>
-          <!-- End Service Item -->
-
-          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Dolor Sitema</a></h4>
-                <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exa</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item d-flex">
-              <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Sed ut perspiciatis</a></h4>
-                <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
+<!-- ========= TENTANG / FITUR ========= -->
+<section class="section-padding" style="background: var(--bondo-bg);">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Mengapa Memilih Kami?</h2>
+      <p>Perpustakaan Daerah Bondowoso hadir dengan fasilitas terbaik untuk mendukung budaya literasi masyarakat</p>
+      <div class="line"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-card">
+          <div class="icon-box" style="background: var(--bondo-green-light); color: var(--bondo-green);"><i class="bi bi-book"></i></div>
+          <h5>Ribuan Koleksi</h5>
+          <p>Lebih dari 10.000 judul buku fiksi, non-fiksi, jurnal, dan referensi ilmiah</p>
         </div>
-
       </div>
-
-    </section><!-- /Featured Services Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <p class="who-we-are">Who We Are</p>
-            <h3>Unleashing Potential with Creative Strategy</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-            </ul>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-          </div>
-
-          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-4">
-              <div class="col-lg-6">
-                <img src="p/assets/img/about-company-1.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6">
-                <div class="row gy-4">
-                  <div class="col-lg-12">
-                    <img src="p/assets/img/about-company-2.jpg" class="img-fluid" alt="">
-                  </div>
-                  <div class="col-lg-12">
-                    <img src="p/assets/img/about-company-3.jpg" class="img-fluid" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-card">
+          <div class="icon-box" style="background: var(--bondo-gold-light); color: var(--bondo-gold);"><i class="bi bi-wifi"></i></div>
+          <h5>Internet Gratis</h5>
+          <p>Akses WiFi berkecepatan tinggi gratis untuk semua pengunjung perpustakaan</p>
         </div>
-
       </div>
-    </section><!-- /About Section -->
-
-    <!-- Clients Section -->
-    <section id="clients" class="clients section">
-
-      <div class="container" data-aos="fade-up">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-1.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-2.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-3.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-4.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-5.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="p/assets/img/clients/client-6.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
-
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-card">
+          <div class="icon-box" style="background: var(--bondo-green-light); color: var(--bondo-green);"><i class="bi bi-building"></i></div>
+          <h5>Ruang Nyaman</h5>
+          <p>Ruang baca full AC, bersih, dan kondusif untuk belajar sepanjang hari</p>
         </div>
-
       </div>
-
-    </section><!-- /Clients Section -->
-
-    <!-- Features Section -->
-    <section id="features" class="features section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Features</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-        <div class="row justify-content-between">
-
-          <div class="col-lg-5 d-flex align-items-center">
-
-            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
-              <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
-                  <i class="bi bi-binoculars"></i>
-                  <div>
-                    <h4 class="d-none d-lg-block">Modi sit est dela pireda nest</h4>
-                    <p>
-                      Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                      velit esse cillum dolore eu fugiat nulla pariatur
-                    </p>
-                  </div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
-                  <i class="bi bi-box-seam"></i>
-                  <div>
-                    <h4 class="d-none d-lg-block">Unde praesenti mara setra le</h4>
-                    <p>
-                      Recusandae atque nihil. Delectus vitae non similique magnam molestiae sapiente similique
-                      tenetur aut voluptates sed voluptas ipsum voluptas
-                    </p>
-                  </div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-                  <i class="bi bi-brightness-high"></i>
-                  <div>
-                    <h4 class="d-none d-lg-block">Pariatur explica nitro dela</h4>
-                    <p>
-                      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                      Debitis nulla est maxime voluptas dolor aut
-                    </p>
-                  </div>
-                </a>
-              </li>
-            </ul><!-- End Tab Nav -->
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
-              <div class="tab-pane fade active show" id="features-tab-1">
-                <img src="p/assets/img/tabs-1.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
-
-              <div class="tab-pane fade" id="features-tab-2">
-                <img src="p/assets/img/tabs-2.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
-
-              <div class="tab-pane fade" id="features-tab-3">
-                <img src="p/assets/img/tabs-3.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
-            </div>
-
-          </div>
-
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="feature-card">
+          <div class="icon-box" style="background: var(--bondo-gold-light); color: var(--bondo-gold);"><i class="bi bi-laptop"></i></div>
+          <h5>E-Library</h5>
+          <p>Katalog digital dan akses e-book melalui komputer yang tersedia di sini</p>
         </div>
-
       </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Features Section -->
-
-    <!-- Features Details Section -->
-    <section id="features-details" class="features-details section">
-
-      <div class="container">
-
-        <div class="row gy-4 justify-content-between features-item">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="p/assets/img/features-1.jpg" class="img-fluid" alt="">
+<!-- ========= TENTANG PERPUSTAKAAN ========= -->
+<section id="tentang" class="section-padding">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow" alt="Perpustakaan" style="border: 4px solid #fff;">
+          <div class="position-absolute bottom-0 end-0 bg-white shadow rounded-3 p-3 m-3 d-none d-md-block" style="border-left: 4px solid var(--bondo-gold);">
+            <h5 class="fw-bold mb-0" style="color: var(--bondo-green);">10.000+</h5>
+            <small class="text-muted">Koleksi Judul Buku</small>
           </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <span class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background: var(--bondo-green-light); color: var(--bondo-green); font-weight: 700; font-size: 0.85rem;">Tentang Kami</span>
+        <h2 class="fw-bold mb-3" style="color: var(--bondo-text);">Pusat Literasi & Informasi Masyarakat Bondowoso</h2>
+        <p class="mb-4" style="color: var(--bondo-muted); line-height: 1.8;">Perpustakaan Daerah Kabupaten Bondowoso bukan sekadar tempat menyimpan buku, melainkan ruang interaksi sosial, diskusi, dan pengembangan diri bagi seluruh elemen masyarakat.</p>
+        <div class="p-3 rounded-3" style="background: var(--bondo-gold-light); border-left: 4px solid var(--bondo-gold);">
+          <p class="fst-italic mb-1" style="color: #555; font-size: 0.92rem;">"Membaca adalah melawan, menulis adalah merawat budaya bangsa."</p>
+          <small class="fw-bold" style="color: var(--bondo-green);">— Kepala Dinas Perpusda Bondowoso</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="content">
-              <h3>Corporis temporibus maiores provident</h3>
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-              </p>
-              <a href="#" class="btn more-btn">Learn More</a>
-            </div>
+<!-- ========= JADWAL ========= -->
+<section id="jadwal" class="section-padding" style="background: var(--bondo-bg);">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Jadwal Operasional</h2>
+      <p>Jadwal buka dan layanan Perpustakaan Daerah Kabupaten Bondowoso</p>
+      <div class="line"></div>
+    </div>
+
+    @php
+      date_default_timezone_set('Asia/Jakarta');
+      $currentDay = date('w');
+      $currentHour = date('H:i');
+      $isOpen = false;
+      if ($currentDay >= 1 && $currentDay <= 4) {
+        if ($currentHour >= '08:00' && $currentHour <= '15:30') $isOpen = true;
+      } elseif ($currentDay == 5) {
+        if ($currentHour >= '08:00' && $currentHour <= '14:30') $isOpen = true;
+      }
+      $daysIndo = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      $todayName = $daysIndo[$currentDay];
+    @endphp
+
+    <div class="row justify-content-center g-4">
+      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="jadwal-status h-100 d-flex flex-column justify-content-center" style="background: {{ $isOpen ? 'linear-gradient(135deg, #16a34a, #22c55e)' : 'linear-gradient(135deg, #dc2626, #ef4444)' }};">
+          <i class="bi {{ $isOpen ? 'bi-door-open-fill' : 'bi-door-closed-fill' }}" style="font-size: 3rem;"></i>
+          <h3 class="fw-bold mt-3 mb-2">{{ $isOpen ? 'Perpustakaan Buka' : 'Perpustakaan Tutup' }}</h3>
+          <p style="opacity: 0.85; margin-bottom: 20px;">{{ $isOpen ? 'Kami siap melayani Anda hari ini!' : 'Silakan kunjungi pada jam buka.' }}</p>
+          <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
+            <small style="opacity: 0.6;">Waktu saat ini</small>
+            <h5 class="fw-bold mb-0">{{ $todayName }}, {{ date('H:i') }} WIB</h5>
           </div>
+        </div>
+      </div>
+      <div class="col-lg-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="jadwal-table bg-white shadow-sm h-100 d-flex align-items-center">
+          <table class="table table-hover mb-0 text-center w-100">
+            <thead>
+              <tr>
+                <th>Hari</th>
+                <th>Buka</th>
+                <th>Tutup</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="{{ ($currentDay >= 1 && $currentDay <= 4) ? 'fw-bold' : '' }}" style="{{ ($currentDay >= 1 && $currentDay <= 4) ? 'background: var(--bondo-green-light);' : '' }}">
+                <td>Senin – Kamis</td><td>08:00</td><td>15:30</td>
+              </tr>
+              <tr class="{{ $currentDay == 5 ? 'fw-bold' : '' }}" style="{{ $currentDay == 5 ? 'background: var(--bondo-green-light);' : '' }}">
+                <td>Jumat</td><td>08:00</td><td>14:30</td>
+              </tr>
+              <tr class="{{ ($currentDay == 0 || $currentDay == 6) ? 'fw-bold text-danger' : '' }}">
+                <td>Sabtu & Minggu</td><td colspan="2" class="text-danger">TUTUP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        </div><!-- Features Item -->
-
-        <div class="row gy-4 justify-content-between features-item">
-
-          <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="content">
-              <h3>Neque ipsum omnis sapiente quod quia dicta</h3>
-              <p>
-                Quidem qui dolore incidunt aut. In assumenda harum id iusto lorena plasico mares
-              </p>
-              <ul>
-                <li><i class="bi bi-easel flex-shrink-0"></i> Et corporis ea eveniet ducimus.</li>
-                <li><i class="bi bi-patch-check flex-shrink-0"></i> Exercitationem dolorem sapiente.</li>
-                <li><i class="bi bi-brightness-high flex-shrink-0"></i> Veniam quia modi magnam.</li>
-              </ul>
-              <p></p>
-              <a href="#" class="btn more-btn">Learn More</a>
+<!-- ========= BERITA ========= -->
+<section id="berita" class="section-padding">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Berita Terbaru</h2>
+      <p>Kegiatan dan pengumuman terkini Perpustakaan Bondowoso</p>
+      <div class="line"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="berita-card">
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80" alt="Berita">
+          <div class="berita-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="berita-badge" style="background: var(--bondo-green-light); color: var(--bondo-green);">Kegiatan</span>
+              <small class="text-muted">10 Mar 2026</small>
             </div>
-
+            <h5>Peresmian Pojok Baca Digital di Alun-Alun Bondowoso</h5>
+            <p>Perpustakaan Daerah meresmikan Pojok Baca Digital yang dapat diakses publik secara gratis...</p>
+            <a href="#" class="read-more">Baca Selengkapnya →</a>
           </div>
-
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="p/assets/img/features-2.jpg" class="img-fluid" alt="">
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="berita-card">
+          <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80" alt="Berita">
+          <div class="berita-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="berita-badge" style="background: var(--bondo-gold-light); color: var(--bondo-gold);">Koleksi</span>
+              <small class="text-muted">5 Mar 2026</small>
+            </div>
+            <h5>Tambahan 500 Buku Referensi Baru dari Penerbit Nasional</h5>
+            <p>Kami menghadirkan lebih dari 500 judul buku referensi terbaru untuk mahasiswa dan pelajar...</p>
+            <a href="#" class="read-more">Baca Selengkapnya →</a>
           </div>
-
-        </div><!-- Features Item -->
-
-      </div>
-
-    </section><!-- /Features Details Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row g-5">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item item-cyan position-relative">
-              <i class="bi bi-activity icon"></i>
-              <div>
-                <h3>Nesciunt Mete</h3>
-                <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item item-orange position-relative">
-              <i class="bi bi-broadcast icon"></i>
-              <div>
-                <h3>Eosle Commodi</h3>
-                <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item item-teal position-relative">
-              <i class="bi bi-easel icon"></i>
-              <div>
-                <h3>Ledo Markt</h3>
-                <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item item-red position-relative">
-              <i class="bi bi-bounding-box-circles icon"></i>
-              <div>
-                <h3>Asperiores Commodi</h3>
-                <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item item-indigo position-relative">
-              <i class="bi bi-calendar4-week icon"></i>
-              <div>
-                <h3>Velit Doloremque.</h3>
-                <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-item item-pink position-relative">
-              <i class="bi bi-chat-square-text icon"></i>
-              <div>
-                <h3>Dolori Architecto</h3>
-                <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
-                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
         </div>
-
       </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- More Features Section -->
-    <section id="more-features" class="more-features section">
-
-      <div class="container">
-
-        <div class="row justify-content-around gy-4">
-
-          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-            <h3>Enim quis est voluptatibus aliquid consequatur</h3>
-            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi</p>
-
-            <div class="row">
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-easel flex-shrink-0"></i>
-                <div>
-                  <h4>Lorem Ipsum</h4>
-                  <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias </p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-patch-check flex-shrink-0"></i>
-                <div>
-                  <h4>Nemo Enim</h4>
-                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiise</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-brightness-high flex-shrink-0"></i>
-                <div>
-                  <h4>Dine Pad</h4>
-                  <p>Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-lg-6 icon-box d-flex">
-                <i class="bi bi-brightness-high flex-shrink-0"></i>
-                <div>
-                  <h4>Tride clov</h4>
-                  <p>Est voluptatem labore deleniti quis a delectus et. Saepe dolorem libero sit</p>
-                </div>
-              </div><!-- End Icon Box -->
-
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="berita-card">
+          <img src="https://images.unsplash.com/photo-1577563908411-5079b6c33367?auto=format&fit=crop&w=600&q=80" alt="Berita">
+          <div class="berita-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="berita-badge" style="background: var(--bondo-green-light); color: var(--bondo-green);">Lomba</span>
+              <small class="text-muted">28 Feb 2026</small>
             </div>
-
+            <h5>Lomba Menulis Esai: "Bondowoso Membaca" 2026</h5>
+            <p>Lomba menulis esai dengan total hadiah jutaan rupiah. Segera daftar dan unjuk bakat menulismu!</p>
+            <a href="#" class="read-more">Baca Selengkapnya →</a>
           </div>
-
-          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="p/assets/img/features-3.jpg" alt="">
-          </div>
-
         </div>
-
       </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /More Features Section -->
+<!-- ========= REKOMENDASI BUKU ========= -->
+<section id="buku" class="section-padding" style="background: var(--bondo-bg);">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Rekomendasi Buku</h2>
+      <p>Karya terbaik yang populer bulan ini di Perpustakaan Bondowoso</p>
+      <div class="line"></div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      @forelse($books as $book)
+      <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 100 }}">
+        <div class="buku-card">
+          @if($book->stock <= 2 && $book->stock > 0)
+            <span class="badge-populer"><i class="bi bi-fire"></i> Sisa {{ $book->stock }}</span>
+          @elseif($book->stock == 0)
+            <span class="badge-populer bg-secondary"><i class="bi bi-x-circle"></i> Habis</span>
+          @endif
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Pricing</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="pricing-item">
-              <h3>Free Plan</h3>
-              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <a href="#" class="cta-btn">Start a free trial</a>
-              <p class="text-center small">No credit card required</p>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
-              </ul>
+          @if($book->cover_image)
+            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
+          @else
+            <div class="bg-light d-flex align-items-center justify-content-center mb-3 mx-auto shadow rounded" style="width: 130px; height: 190px;">
+              <i class="bi bi-book text-muted" style="font-size: 3rem;"></i>
             </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="pricing-item featured">
-              <p class="popular">Popular</p>
-              <h3>Business Plan</h3>
-              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <a href="#" class="cta-btn">Start a free trial</a>
-              <p class="text-center small">No credit card required</p>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
-              </ul>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="pricing-item">
-              <h3>Developer Plan</h3>
-              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <a href="#" class="cta-btn">Start a free trial</a>
-              <p class="text-center small">No credit card required</p>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
-                <li><i class="bi bi-check"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
-              </ul>
-            </div>
-          </div><!-- End Pricing Item -->
-
+          @endif
+          
+          <h6>{{ $book->title }}</h6>
+          <p class="author text-truncate px-2">{{ $book->author }}</p>
+          <span class="kategori-badge">{{ $book->category->name }}</span>
         </div>
-
       </div>
-
-    </section><!-- /Pricing Section -->
-
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Frequently Asked Questions</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row justify-content-center">
-
-          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="faq-container">
-
-              <div class="faq-item faq-active">
-                <h3>Non consectetur a erat nam at lectus urna duis?</h3>
-                <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
-                <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
-                <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
-                <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
-                <div class="faq-content">
-                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
-                <div class="faq-content">
-                  <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-            </div>
-
-          </div><!-- End Faq Column-->
-
-        </div>
-
+      @empty
+      <div class="col-12 text-center py-5">
+        <p class="text-muted">Belum ada koleksi buku yang tersedia.</p>
       </div>
+      @endforelse
+    </div>
+    <div class="text-center mt-5">
+      <a href="#" class="btn-hero-primary" style="text-decoration: none; background: var(--bondo-green); color: #fff; padding: 12px 30px; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; font-weight: 700; transition: all 0.3s; box-shadow: 0 4px 15px rgba(26,109,58,0.3); border: none;">
+        <i class="bi bi-collection" style="font-size: 1.2rem;"></i> 
+        <span>Lihat Semua Koleksi</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Faq Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 1
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="p/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="p/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="p/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="p/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="p/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
+<!-- ========= ULASAN PENGUNJUNG ========= -->
+<section id="ulasan" class="section-padding">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Ulasan Pengunjung</h2>
+      <p>Apa kata mereka tentang layanan Perpustakaan Bondowoso</p>
+      <div class="line"></div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="ulasan-card">
+          <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <blockquote>"Koleksi bukunya sangat lengkap, terutama buku sejarah dan literatur lokal. Tempatnya nyaman, pas buat nugas seharian."</blockquote>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="avatar" alt="">
+          <p class="name">Siti Nurhaliza</p>
+          <p class="role">Mahasiswi Universitas Jember</p>
         </div>
-
       </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone"></i>
-              <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>info@example.com</p>
-            </div>
-          </div><!-- End Info Item -->
-
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="ulasan-card">
+          <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+          <blockquote>"Anak saya selalu senang diajak ke Perpusda Bondowoso. Area anak-anak sangat interaktif dan koleksi buku ceritanya update terus."</blockquote>
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=100&q=80" class="avatar" alt="">
+          <p class="name">Budi Santoso</p>
+          <p class="role">Wiraswasta / Orang Tua</p>
         </div>
-
-        <div class="row gy-4 mt-1">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div><!-- End Google Maps -->
-
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
       </div>
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="ulasan-card">
+          <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+          <blockquote>"Sangat membantu untuk mencari referensi jurnal. Internet gratis dan komputer E-Library berjalan lancar dan cepat."</blockquote>
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="avatar" alt="">
+          <p class="name">Ahmad Fauzi</p>
+          <p class="role">Peneliti Independen</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Contact Section -->
+<!-- ========= CTA ========= -->
+<section class="cta-section">
+  <div class="container" data-aos="fade-up">
+    <h3>Bergabunglah Bersama Kami</h3>
+    <p>Daftar menjadi anggota perpustakaan sekarang — gratis dan mudah!</p>
+    <a href="{{ route('register') }}" class="btn-hero-primary">
+      <i class="bi bi-person-plus" style="font-size: 1.2rem;"></i> 
+      <span>Daftar Anggota Sekarang</span>
+    </a>
+  </div>
+</section>
 
-  </main>
+<!-- Vendor JS Files -->
+<script src="{{ asset('p/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('p/assets/vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('p/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('p/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('p/assets/js/main.js') }}"></script>
+<script>
+  // Fallback AOS init
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof AOS !== 'undefined') {
+      AOS.init({ duration: 600, once: true });
+    }
+  });
+</script>
 
-
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="p/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="p/assets/vendor/php-email-form/validate.js"></script>
-  <script src="p/assets/vendor/aos/aos.js"></script>
-  <script src="p/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="p/assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="p/assets/js/main.js"></script>
-
-</body>
-
-</html>
 @endsection

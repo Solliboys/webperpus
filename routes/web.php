@@ -1,19 +1,29 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\BookController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+use App\Http\Controllers\WelcomeController;
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/frontend', [ProfileController::class, 'showFrontend']);
 
-Route::get('/admin', function () {
-    return view('dashboard');
-})->name('dashboard');
+use App\Models\Book;
+use App\Models\User;
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/', function () {
+        $bookCount = Book::count();
+        $userCount = User::count();
+        return view('dashboard', compact('bookCount', 'userCount'));
+    })->name('dashboard');
+
+    Route::resource('books', BookController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class)->middleware('role:super_admin');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
