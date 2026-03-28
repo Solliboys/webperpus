@@ -1,16 +1,23 @@
 node {
 
+    stage("Init") {
+        sh '''
+            git config --global http.version HTTP/1.1
+            git config --global http.postBuffer 524288000
+        '''
+    }
+
     stage("Checkout") {
-        checkout scm
+        retry(3) {
+            checkout scm
+        }
     }
 
     stage("Build") {
         docker.image('composer:2.6').inside('-u root') {
             sh '''
-                rm -rf vendor composer.lock
+                rm -rf vendor
                 composer clear-cache
-
-                git config --global http.postBuffer 524288000
                 composer config -g process-timeout 2000
 
                 composer install \
