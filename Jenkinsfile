@@ -4,15 +4,11 @@ node {
         checkout scm
     }
 
-    stage('Build') {
-        docker.image('composer:2.6').inside('-u root') {
-            sh '''
-                echo "=== BUILD STAGE ==="
-                rm -f composer.lock
-                composer install
-            '''
-        }
+stage('Build') {
+    steps {
+        sh 'composer install'
     }
+}
 
     stage('Testing') {
         docker.image('ubuntu').inside('-u root') {
