@@ -7,12 +7,16 @@ node {
         '''
     }
 
-    stage("Checkout") {
-        retry(3) {
-            checkout scm
-        }
+stage('Checkout') {
+    retry(3) {
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*/main']],
+            userRemoteConfigs: [[url: 'https://github.com/Solliboys/webperpus.git']],
+            extensions: [[$class: 'CloneOption', depth: 1, shallow: true]]
+        ])
     }
-
+}
     stage("Build") {
         docker.image('composer:2.6').inside('-u root') {
             sh '''
