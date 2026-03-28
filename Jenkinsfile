@@ -5,7 +5,12 @@ node {
     }
 
     stage('Build') {
-        sh 'composer install'
+        sh '''
+        composer install \
+        --prefer-source \
+        --no-interaction \
+        --no-progress
+        '''
     }
 
     stage('Testing') {
@@ -22,9 +27,11 @@ node {
             sh '''
                 echo "=== DEPLOY STAGE ==="
 
-                ssh -o StrictHostKeyChecking=no -p 22 solli@172.28.163.134 "
+                ssh -o StrictHostKeyChecking=no solli@172.28.163.134 "
                     echo 'Deploy berhasil!'
                 "
             '''
         }
     }
+
+}
