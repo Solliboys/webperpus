@@ -4,11 +4,9 @@ node {
         checkout scm
     }
 
-stage('Build') {
-    steps {
+    stage('Build') {
         sh 'composer install'
     }
-}
 
     stage('Testing') {
         docker.image('ubuntu').inside('-u root') {
